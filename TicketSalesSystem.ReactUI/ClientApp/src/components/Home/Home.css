@@ -1,0 +1,39 @@
+﻿.ticket-search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ticket-search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #dad4e4;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+input[type="text"],
+input[type="date"],
+button {
+    margin: 8px;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+}
+
+button {
+    color: #FFFFFF;
+    background-color: #6A5ACD;
+    border: 2px solid;
+}
+
+    button:hover {
+        box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        font-weight: bold;
+        color: #FFFFFF;
+        border-color: #FFFFFF;
+    }
