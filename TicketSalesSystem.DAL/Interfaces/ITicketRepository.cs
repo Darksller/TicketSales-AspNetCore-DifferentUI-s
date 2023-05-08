@@ -9,5 +9,6 @@ namespace TicketSalesSystem.DAL.Interfaces
 {
     public interface ITicketRepository : IBaseRepository<Ticket>
     {
+        public Task<IEnumerable<Ticket>> GetByFlightIdAsync(int flightId);
     }
 }

@@ -21,6 +21,11 @@ namespace TicketSalesSystem.DAL.Repositories
             return await _dbSet.AsNoTracking().Include(a => a.User).Include(a => a.Flight).Include(a => a.SeatType).ToListAsync();
         }
 
+        public async Task<IEnumerable<Ticket>> GetByFlightIdAsync(int flightId)
+        {
+            return await _dbSet.AsNoTracking().Include(a => a.User).Include(a => a.Flight).Include(a => a.SeatType).Where(a => a.FlightId == flightId).ToListAsync();
+        }
+
         public async override Task<Ticket> GetByIdAsync(int id) =>
             await _dbSet.AsNoTracking().Include(a => a.User).Include(a => a.Flight).Include(a => a.SeatType).FirstOrDefaultAsync(a => a.Id == id);
     }

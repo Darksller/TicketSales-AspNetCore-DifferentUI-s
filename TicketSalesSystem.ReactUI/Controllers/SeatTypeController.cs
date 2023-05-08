@@ -22,5 +22,12 @@ namespace TicketSalesSystem.ReactUI.Controllers
         {
             return await _seatTypeService.GetSeatTypesByAirplaneId(id);
         }
+
+        [HttpGet]
+        [Route("GetById")]
+        public async Task<SeatTypeDTO> GetById(int id)
+        {
+            return await _seatTypeService.GetByIdAsync(id);
+        }
     }
 }

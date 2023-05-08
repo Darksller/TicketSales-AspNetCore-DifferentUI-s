@@ -1,0 +1,223 @@
+.block {
+    border-radius: 10px;
+    color: #FFFFFF;
+    padding: 10px 10px;
+    margin: 10px 100px;
+    background-color: #c6bef5;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 0.5fr 0.5fr 0.5fr;
+    border: 2px solid #333;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    text-align: center;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+}
+
+.airline-name {
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 10px 100px;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    text-align: center;
+    background-color: #6A5ACD;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin: 5px 10px 10px;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+.depPoint {
+    grid-row: 2;
+    grid-column: 1;
+}
+
+.arrPoint {
+    grid-row: 2;
+    grid-column: 3;
+}
+
+.depTime {
+    grid-row: 3;
+    grid-column: 1;
+}
+
+.arrTime {
+    grid-row: 3;
+    grid-column: 3;
+}
+
+.flightTime {
+    grid-row: 3;
+    grid-column: 2;
+}
+
+.price {
+    background-color: #6A5ACD;
+    border: 2px solid;
+    padding: 0px 40px;
+    margin: auto auto auto auto;
+    border-radius: 10px;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    grid-column: 4;
+}
+
+.but {
+    border-color: white;
+    color: white;
+    border-radius: 5px;
+    font-size: 20px;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column: 4
+}
+
+.arrow {
+    font-size: 20px;
+}
+
+
+.seat-type-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    grid-gap: 10px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.seat-type-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    cursor: pointer;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+    .seat-type-item:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .seat-type-item input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+.seat-type-item-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+.seat-type-name {
+    margin-bottom: 5px;
+}
+
+.seat-type-price {
+    font-size: 14px;
+    color: #777;
+}
+
+.seat-type-item input:checked + .seat-type-item-content {
+    background-color: #c6bef5;
+}
+
+
+.ticket-price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+    height: 60px;
+    background-color: #c6bef577;
+    border-radius: 10px;
+}
+
+
+
+.buy-ticket-button {
+    display: block;
+    margin: 20px auto;
+    font-size: 24px;
+    padding: 20px 40px;
+    background-color: #826eb9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+    .buy-ticket-button:hover {
+        background-color: #6A5ACD;
+    }
+
+.confirmation-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 2px solid #826eb9;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+}
+
+.confirmation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+}
+
+.confirmation-panel p {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.confirmation-panel button {
+    font-size: 18px;
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #826eb9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+    .confirmation-panel button:hover {
+        background-color: #6A5ACD;
+    }

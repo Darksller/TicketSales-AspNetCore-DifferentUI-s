@@ -3,7 +3,10 @@ import axios from 'axios';
 
 export default class Store {
     isAuth = false
-    user = {}
+    user = {
+        email: "",
+        role: ""
+    }
     isAdmin = false
     isLoading = false
     constructor() {
@@ -54,13 +57,14 @@ export default class Store {
         }
     }
 
-    async registration(email, password, name, passport) {
+    async registration(email, password, name, passport, phone) {
         try {
             const response = await axios.post(`/user/registration`, {
                 email: email,
                 password: password,
                 name: name,
-                passport: passport
+                passport: passport,
+                phone: phone
             });
 
             console.log(response);
@@ -69,7 +73,7 @@ export default class Store {
 
             const user = {
                 email: response.data.email,
-                roles: response.data.roles
+                role: response.data.role
             }
 
             this.setUser(user);
@@ -93,4 +97,31 @@ export default class Store {
             console.log(e.response?.data?.message);
         }
     }
+
+    async checkAuth() {
+        this.setLoading(true);
+        try {
+            axios.defaults.withCredentials = true;
+            const response = await axios.post("/user/refresh")
+            console.log(response);
+            localStorage.setItem('token', response.data.accessToken);
+            this.setAuth(true);
+
+            const user = {
+                email: response.data.email,
+                role: response.data.role
+            }
+
+            this.setUser(user);
+
+            if (this.user.role === 'admin') {
+                this.setAdmin(true);
+            }
+        } catch (e) {
+            console.log(e.response?.data?.message);
+        } finally {
+            this.setLoading(false);
+        }
+    }
+
 }

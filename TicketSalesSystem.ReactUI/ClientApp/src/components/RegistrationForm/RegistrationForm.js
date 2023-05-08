@@ -14,9 +14,16 @@ const RegistrationForm = () => {
     const [passport, setPassport] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [phone, setPhone] = useState('');
+    const [phoneError, setPhoneError] = useState('');
 
     const { store } = useContext(Context);
     const [isError, setError] = useState('');
+
+    const isPhoneValid = (phone) => {
+        const phonePattern = /^[+]*[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/;
+        return phonePattern.test(phone);
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -24,13 +31,18 @@ const RegistrationForm = () => {
             setError('Пароли должны совпадать!');
             return;
         }
-        store.registration(email, password, name, passport);
+        if (!isPhoneValid(phone)) {
+            setPhoneError('Некорректный номер телефона!');
+            return;
+        }
+        store.registration(email, password, name, passport, phone);
         setTimeout(() => {
             if (!store.isAuth) {
                 setError('Пользователь с таким Email уже зарегистрирован');
             }
         }, 1000);
     }
+
 
     if (store.isAuth) {
         return <Navigate to='/' />;
@@ -49,6 +61,12 @@ const RegistrationForm = () => {
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email:</Form.Label>
                     <Form.Control type="email" placeholder="Введите Email" value={email} required onChange={(e) => setEmail(e.target.value)} />
+                </Form.Group>
+
+                <Form.Group controlId="formBasicPhone">
+                    <Form.Label>Телефон:</Form.Label>
+                    <Form.Control type="textarea" placeholder="Введите номер телефона" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                    <Form.Label className="error">{phoneError}</Form.Label>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassport">

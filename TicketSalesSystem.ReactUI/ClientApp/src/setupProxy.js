@@ -9,7 +9,8 @@ const context = [
     "/route",
     "/airline",
     "/seatType",
-    "/user"
+    "/user",
+    "/ticket"
 ];
 
 const onError = (err, req, resp, target) => {

@@ -12,6 +12,7 @@ namespace TicketSalesSystem.DAL.Entities
         public string Name { get; set; } = string.Empty;
         public Decimal Price { get; set; }
         public int Count { get; set; }
+        public int MaxCount { get; set; }
         public int AirplaneId { get; set; }
         public Airplane? Airplane { get; set; }
         public List<Ticket> Tickets { get; set; } = new();

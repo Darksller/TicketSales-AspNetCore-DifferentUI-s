@@ -37,7 +37,24 @@ namespace TicketSalesSystem.BLL.Services
 
             return jwt;
         }
+        public RefreshTokenDTO CreateRefreshToken(string email)
+        {
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Email, email)
+            };
 
+            var jwt = CreateToken(claims, DateTime.Now.AddDays(30));
+
+            var refreshToken = new RefreshTokenDTO()
+            {
+                RefreshToken = jwt,
+                Expires = DateTime.Now.AddDays(30),
+                Created = DateTime.Now
+            };
+
+            return refreshToken;
+        }
         private string CreateToken(List<Claim> claims, DateTime expires)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
@@ -57,7 +74,9 @@ namespace TicketSalesSystem.BLL.Services
         }
         public async Task<RefreshTokenDTO> RemoveAsync(RefreshTokenDTO refreshToken)
         {
-            var tokenChecked = await _tokenRepository.GetByTokenAsync(refreshToken.RefreshToken);
+            var tokenChecked = await _tokenRepository.GetByUserIdAsync(refreshToken.UserId);
+            if (tokenChecked is null)
+                return refreshToken;
             await _tokenRepository.DeleteAsync(tokenChecked);
             return refreshToken;
         }
@@ -80,6 +99,15 @@ namespace TicketSalesSystem.BLL.Services
             await _tokenRepository.CreateAsync(mapperModel);
             return refreshToken;
         }
+        public bool ValidateAccessToken(Token token)
+        {
+            throw new NotImplementedException("");
+        }
+        public async Task<bool> ValidateRefreshToken(string refreshToken)
+        {
+            var token = await FindToken(refreshToken);
+            return true;
+        }
         public async Task<RefreshTokenDTO> FindTokenByUserId(int id)
         {
             var tokenChecked = await _tokenRepository.GetByUserIdAsync(id);
@@ -90,42 +118,6 @@ namespace TicketSalesSystem.BLL.Services
             var mapperModel = _mapper.Map<RefreshTokenDTO>(tokenChecked);
             return mapperModel;
         }
-        public RefreshTokenDTO CreateRefreshToken(string email)
-        {
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Email, email)
-            };
-
-            var jwt = CreateToken(claims, DateTime.Now.AddDays(30));
-
-            var refreshToken = new RefreshTokenDTO()
-            {
-                RefreshToken = jwt,
-                Expires = DateTime.Now.AddDays(30),
-                Created = DateTime.Now
-            };
-
-            return refreshToken;
-        }
-        public bool ValidateAccessToken(Token token)
-        {
-            throw new NotImplementedException("");
-        }
-
-        public async Task<bool> ValidateRefreshToken(string refreshToken)
-        {
-            var token = await FindToken(refreshToken);
-
-            //if(token.Expires < DateTime.Now)
-            //{
-            //    _logger.LogError("Unautorize");
-            //    throw new Exceptions.UnauthorizedAccessException("Refresh token is not validation");
-            //}
-
-            return true;
-        }
-
     }
 }
 

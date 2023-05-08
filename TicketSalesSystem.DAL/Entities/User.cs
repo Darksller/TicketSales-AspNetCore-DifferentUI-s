@@ -20,5 +20,7 @@ namespace TicketSalesSystem.DAL.Entities
         public int RoleId { get; set; }
         public Role? Role { get; set; }
         public Token? Token { get; set; }
+        public string Phone { get; set; } = string.Empty;
+        public List<Ticket> Tickets { get; set; } = new();
     }
 }

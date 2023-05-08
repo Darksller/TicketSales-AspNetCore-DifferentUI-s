@@ -2,12 +2,18 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import './FlightDetails.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { Context } from '../../index';
+
 
 function FlightDetails({ flight }) {
     const [airlineName, setAirlineName] = useState("");
     const [seatTypes, setSeatTypes] = useState([]);
     const [departurePoint, setDeparturePoint] = useState("");
     const [arrivalPoint, setArrivalPoint] = useState("");
+    const navigate = useNavigate();
+    const { store } = useContext(Context);
 
     useEffect(() => {
         axios.get(`/airline/GetAirlineById`, {
@@ -50,7 +56,6 @@ function FlightDetails({ flight }) {
             });
     }, [flight.airlineId, flight.airplaneId, flight.routeId]);
 
-
     if (seatTypes.length === 0) {
         return null;
     }
@@ -74,20 +79,29 @@ function FlightDetails({ flight }) {
     }
 
     const handleSelect = () => {
-
+        if (!store.isAuth) {
+            navigate('/login');
+        } else {
+            navigate('/buyticket', {
+                state: {
+                    flight: flight, airlineName: airlineName, seatTypes: seatTypes, route:
+                        { departurePoint: departurePoint, arrivalPoint: arrivalPoint }
+                }
+            });
+        }
     };
 
     return (
         <div className="block">
-            <div class="airline-name">{airlineName}</div>
-            <div class="depPoint">{departurePoint}</div>
-            <div class="arrPoint">{arrivalPoint}</div>
-            <div class="depTime">{formatTime(flight.departureTime)}</div>
-            <div class="arrTime">{formatTime(flight.arrivalTime)}</div>
-            <div class="flightTime">Время в пути: {hours}ч {minutes}м</div>
-            <div class="price">Цена: {seatTypes[0].price + flight.price} - {seatTypes[seatTypes.length - 1].price + flight.price}</div>
-            <div class="arrow">⟶</div>
-            <button class="but" onClick={handleSelect}>Выбрать</button>
+            <div className="airline-name">{airlineName}</div>
+            <div className="depPoint">{departurePoint}</div>
+            <div className="arrPoint">{arrivalPoint}</div>
+            <div className="depTime">{formatTime(flight.departureTime)}</div>
+            <div className="arrTime">{formatTime(flight.arrivalTime)}</div>
+            <div className="flightTime">Время в пути: {hours}ч {minutes}м</div>
+            <div className="price">Цена: {seatTypes[0].price + flight.price} - {seatTypes[seatTypes.length - 1].price + flight.price}</div>
+            <div className="arrow">⟶</div>
+            <button className="but" onClick={handleSelect}>Выбрать</button>
         </div >
     );
 }

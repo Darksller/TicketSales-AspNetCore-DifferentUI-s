@@ -31,9 +31,9 @@ namespace TicketSalesSystem.BLL.Services
         {
             throw new NotImplementedException();
         }
-        public Task<FlightDTO> GetByIdAsync(int id)
+        public async Task<FlightDTO> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<FlightDTO>(await _flightRepository.GetByIdAsync(id));
         }
         public async Task<IEnumerable<FlightDTO>> GetSearchedFlights(string depPoint, string arrPoint, DateTime depTime)
         {

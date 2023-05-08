@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Collections.Generic;
 using TicketSalesSystem.BLL.DTOs;
 using TicketSalesSystem.BLL.Interfaces;
 using TicketSalesSystem.DAL.Interfaces;
@@ -30,9 +31,9 @@ namespace TicketSalesSystem.BLL.Services
             throw new NotImplementedException();
         }
 
-        public Task<SeatTypeDTO> GetByIdAsync(int id)
+        public async Task<SeatTypeDTO> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<SeatTypeDTO>(await _seatTypeRepository.GetByIdAsync(id));
         }
 
         public async Task<IEnumerable<SeatTypeDTO>> GetSeatTypesByAirplaneId(int airplaneId)

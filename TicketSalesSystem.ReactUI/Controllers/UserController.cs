@@ -6,95 +6,111 @@ using TicketSalesSystem.BLL.Interfaces;
 
 namespace TicketSalesSystem.ReactUI.Controllers
 {
-	[Route("[controller]")]
-	[ApiController]
-	public class UserController : ControllerBase
-	{
-		private readonly IConfiguration _configuration;
-		private IUserService _userService;
-		private ITokenService _tokenService;
-		public UserController(ITokenService tokenService, IUserService userService, IConfiguration configuration)
-		{
-			_userService = userService;
-			_tokenService = tokenService;
-			_configuration = configuration;
-		}
+    [Route("[controller]")]
+    [ApiController]
+    public class UserController : ControllerBase
+    {
+        private IUserService _userService;
+        private ITokenService _tokenService;
+        public UserController(ITokenService tokenService, IUserService userService)
+        {
+            _userService = userService;
+            _tokenService = tokenService;
+        }
 
-		[HttpPost("registration")]
-		public async Task<ActionResult<ResponseUserDTO>> Register(RequestUserDTO request)
-		{
-			var userResponse = await _userService.Register(request);
-			if (userResponse is null)
-			{
-				throw new Exception();
-			}
-			return Ok(userResponse);
-		}
 
-		[HttpPost]
-		[Route("login")]
-		public async Task<ActionResult<ResponseUserDTO>> Login(RequestUserDTO request)
-		{
-			var userResponse = await _userService.Login(request);
-			if (userResponse is null)
-			{
-				throw new Exception();
-			}
-			SetRefreshToken(new RefreshTokenDTO
-			{
-				RefreshToken = userResponse.RefreshToken,
-				Created = userResponse.Created,
-				Expires = userResponse.Expires
-			});
+        [HttpGet]
+        [Route("getbyemail")]
+        public async Task<ActionResult<UserDTO>> GetUserByEmailAsync(string email)
+        {
+            var user = await _userService.GetByEmailAsync(email);
+            return Ok(user);
+        }
 
-			return Ok(userResponse);
-		}
+        [HttpPut]
+        [Route("updateuser")]
+        public async Task<ActionResult<bool>> UpdateUser(UserDTO user)
+        {
+            var mod = await _userService.UpdateAsync(user);
+            if (mod is null) return false;
+            return true;
+        }
 
-		[HttpPost]
-		[Route("logout")]
-		public async Task<ActionResult<string>> Logout()
-		{
-			var refreshToken = Request.Cookies["refreshToken"];
+        [HttpPost]
+        [Route("login")]
+        public async Task<ActionResult<ResponseUserDTO>> Login(RequestUserDTO request)
+        {
+            var userResponse = await _userService.Login(request);
+            if (userResponse is null)
+            {
+                throw new Exception();
+            }
+            SetRefreshToken(new RefreshTokenDTO
+            {
+                RefreshToken = userResponse.RefreshToken,
+                Created = userResponse.Created,
+                Expires = userResponse.Expires
+            });
 
-			var user = await _userService.Logout(refreshToken!);
+            return Ok(userResponse);
+        }
 
-			Response.Cookies.Delete("refreshToken");
+        [HttpPost]
+        [Route("registration")]
+        public async Task<ActionResult<ResponseUserDTO>> Register(RequestUserDTO request)
+        {
+            var userResponse = await _userService.Register(request);
+            if (userResponse is null)
+            {
+                throw new Exception();
+            }
+            return Ok(userResponse);
+        }
 
-			return Ok(refreshToken);
-		}
+        [HttpPost]
+        [Route("logout")]
+        public async Task<ActionResult<string>> Logout()
+        {
+            var refreshToken = Request.Cookies["refreshToken"];
 
-		[HttpPost]
-		[Route("refresh")]
-		public async Task<ActionResult<string>> RefreshToken()
-		{
-			var refreshToken = Request.Cookies["refreshToken"];
+            var user = await _userService.Logout(refreshToken!);
 
-			var validate = await _tokenService.ValidateRefreshToken(refreshToken);
+            Response.Cookies.Delete("refreshToken");
 
-			if (!validate)
-				Unauthorized();
+            return Ok(refreshToken);
+        }
 
-			var user = await _userService.Refresh(refreshToken);
+        [HttpPost]
+        [Route("refresh")]
+        public async Task<ActionResult<string>> RefreshToken()
+        {
+            var refreshToken = Request.Cookies["refreshToken"];
 
-			SetRefreshToken(new RefreshTokenDTO()
-			{
-				RefreshToken = user.RefreshToken,
-				Created = user.Created,
-				Expires = user.Expires
-			});
+            var validate = await _userService.CheckToken(refreshToken!);
 
-			return Ok(user);
-		}
-		private void SetRefreshToken(RefreshTokenDTO refreshToken)
-		{
-			var cookieOptions = new CookieOptions()
-			{
-				HttpOnly = true,
-				Expires = refreshToken.Expires,
-				SameSite = SameSiteMode.Lax
-			};
+            if (!validate)
+                Unauthorized();
 
-			Response.Cookies.Append("refreshToken", refreshToken.RefreshToken, cookieOptions);
-		}
-	}
+            var user = await _userService.Refresh(refreshToken);
+
+            SetRefreshToken(new RefreshTokenDTO()
+            {
+                RefreshToken = user.RefreshToken,
+                Created = user.Created,
+                Expires = user.Expires
+            });
+
+            return Ok(user);
+        }
+
+        private void SetRefreshToken(RefreshTokenDTO refreshToken)
+        {
+            var cookieOptions = new CookieOptions()
+            {
+                HttpOnly = true,
+                Expires = refreshToken.Expires
+            };
+            Response.Cookies.Append("refreshToken", refreshToken.RefreshToken, cookieOptions);
+        }
+    }
 }

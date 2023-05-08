@@ -1,10 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LoginForm.css';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'reactstrap';
 import { observer } from 'mobx-react-lite';
+import { useContext } from 'react';
 import { Context } from '../../index';
 import { Navigate } from 'react-router-dom';
 
@@ -21,7 +22,7 @@ const LoginForm = () => {
             if (!store.isAuth) {
                 setError('Неверный Email или пароль');
             }
-        }, 1000);
+        }, 2000);
     }
 
     if (store.isAuth) {

@@ -1,0 +1,43 @@
+.containr {
+    width: 30%;
+    height: 50%;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin: 0;
+    background-color: #dad4e4;
+}
+
+
+.field {
+    border: 2px solid #333;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    background-color: #6A5ACD;
+    margin: 0px 0px 15px;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+}
+
+
+h4 {
+    border: 2px solid #333;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    margin: 0px 0px 30px;
+    font-weight: bold;
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+    background-color: #6A5ACD;
+    padding: 10px;
+}
+
+.lab {
+    padding: 5px;
+}

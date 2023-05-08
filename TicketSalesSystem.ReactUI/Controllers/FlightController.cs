@@ -21,7 +21,13 @@ namespace TicketSalesSystem.ReactUI.Controllers
         public async Task<IEnumerable<FlightDTO>> GetFlights(string depPoint, string arrPoint, DateTime depTime)
         {
             return await _flightService.GetSearchedFlights(depPoint, arrPoint, depTime);
+        }
 
+        [HttpGet]
+        [Route("GetFlightById")]
+        public async Task<FlightDTO> GetFlightById(int id)
+        {
+            return await _flightService.GetByIdAsync(id);
         }
     }
 }

@@ -22,8 +22,9 @@ namespace TicketSalesSystem.DAL.Repositories
         }
 
         public async override Task<User> GetByIdAsync(int id) =>
-            await _dbSet.AsNoTracking().Include(a => a.Role).FirstOrDefaultAsync(a => a.Id == id);
+            await _dbSet.AsNoTracking().Include(a => a.Role).Include(u => u.Tickets).FirstOrDefaultAsync(a => a.Id == id);
 
-        public async Task<User?> GetByEmailAsync(string email) => await _dbSet.Include(u => u.Role).AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
+        public async Task<User?> GetByEmailAsync(string email) => await _dbSet.Include(u => u.Role).Include(u => u.Tickets)
+            .AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
     }
 }

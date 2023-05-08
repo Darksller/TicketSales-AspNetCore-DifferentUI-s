@@ -2,8 +2,21 @@ import { Route, Routes } from 'react-router-dom';
 import AppRoutes from './AppRoutes';
 import Layout from './components/Layout';
 import './app.css';
+import { observer } from 'mobx-react-lite';
+import { Context } from './index';
+import React, { useContext, useEffect } from 'react';
 
-export default function App() {
+
+
+function App() {
+    const { store } = useContext(Context);
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            store.checkAuth();
+        }
+    }, []);
+
     return (
         <Layout>
             <Routes>
@@ -15,3 +28,6 @@ export default function App() {
         </Layout>
     );
 }
+
+
+export default observer(App);
