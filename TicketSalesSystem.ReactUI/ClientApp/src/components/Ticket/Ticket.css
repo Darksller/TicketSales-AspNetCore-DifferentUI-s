@@ -17,7 +17,7 @@
     border-color: #FFFFFF;
 }
 
-.airline-name {
+.airlinee-name {
     border: 2px solid #333;
     border-radius: 10px;
     padding: 10px 100px;
@@ -31,7 +31,7 @@
     font-weight: bold;
     color: #FFFFFF;
     border-color: #FFFFFF;
-    grid-column-start: 1;
+    grid-column-start: 2;
     grid-column-end: 4;
 }
 
@@ -95,4 +95,9 @@
 .seatType {
     grid-row: 1;
     grid-column: 4;
+}
+
+.ticketNumber {
+    grid-row: 1;
+    grid-column: 1;
 }

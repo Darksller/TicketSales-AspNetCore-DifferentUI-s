@@ -58,7 +58,7 @@ function BuyTicket() {
             seatTypeId: selectedSeatType.id,
             isConfirmed: false
         });
-
+        await axios.post('/email/send', { to: user.email, subject: `Билет зарезервирован`, text: `Билет на сумму ${selectedPrice} был зарезервирован, номер билета можно посмотреть в личном кабинете\nОжидайте подтверждения` });
         navigate('/ThankYouMessage', {
             state: { name: user.name }
         });

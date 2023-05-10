@@ -21,15 +21,24 @@ function NavMenu() {
             <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
                 <NavbarBrand tag={Link} to="/">Система продажи авиабилетов</NavbarBrand>
                 <ul className="navbar-nav flex-grow">
+                    {store.isAdmin &&
+                        <>
+                            <NavItem>
+                                <NavLink tag={Link} className="button" to="/allflights">Список всех рейсов</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={Link} className="button" to="/confirmTickets">Подтверждение билетов</NavLink>
+                            </NavItem>
+                        </>
+                    }
                     <NavItem>
-                        <NavLink tag={Link} className="button" to="/">Рейсы</NavLink>
+                        <NavLink tag={Link} className="button" to="/">Поиск рейсов</NavLink>
                     </NavItem>
-
                     {store.isAuth ?
                         (
                             <>
                                 <NavItem>
-                                    <NavLink tag={Link} className="button" to="/mytickets">Мои билеты</NavLink>
+                                    <NavLink tag={Link} className="button" to="/mytickets">Личный кабинет</NavLink>
                                 </NavItem>
                                 <button className="button" onClick={handleLogout}>Выход</button>
                             </>

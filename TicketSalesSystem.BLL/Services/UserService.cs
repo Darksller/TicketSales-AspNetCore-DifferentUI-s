@@ -141,7 +141,6 @@ namespace TicketSalesSystem.BLL.Services
             await _userRepository.UpdateAsync(user);
             return entity;
         }
-
         public Task<UserDTO> CreateAsync(UserDTO entity)
         {
             throw new NotImplementedException();
@@ -154,9 +153,9 @@ namespace TicketSalesSystem.BLL.Services
         {
             throw new NotImplementedException();
         }
-        public Task<UserDTO> GetByIdAsync(int id)
+        public async Task<UserDTO> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<UserDTO>(await _userRepository.GetByIdAsync(id));
         }
         public async Task<UserDTO> GetByEmailAsync(string email)
         {

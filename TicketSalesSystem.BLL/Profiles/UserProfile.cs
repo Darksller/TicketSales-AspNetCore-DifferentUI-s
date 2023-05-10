@@ -11,7 +11,9 @@ namespace TicketSalesSystem.BLL.Profiles
 			CreateMap<User, UserDTO>()
 				.ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.Name))
 				.ReverseMap();
-			CreateMap<User, ResponseUserDTO>().ReverseMap();
+			CreateMap<User, ResponseUserDTO>()
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.Name))
+                .ReverseMap();
 			CreateMap<User, RequestUserDTO>().ReverseMap();
 		}
 	}

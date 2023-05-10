@@ -12,7 +12,8 @@ namespace TicketSalesSystem.DAL.Configurations
         public static IServiceCollection AddDataAccessServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationContext>(options =>
-                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                    options.EnableSensitiveDataLogging(true)
+                    .UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                     builder => builder.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
 
             services.AddScoped<IAirplaneRepository, AirplaneRepository>()

@@ -21,7 +21,8 @@ namespace TicketSalesSystem.BLL.Configurations
                 .AddScoped<ITicketService, TicketService>()
                 .AddScoped<IAirlineService, AirlineService>()
                 .AddScoped<IUserService, UserService>()
-                .AddScoped<ITokenService, TokenService>();
+                .AddScoped<ITokenService, TokenService>()
+                .AddScoped<IEmailService, EmailService>();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }

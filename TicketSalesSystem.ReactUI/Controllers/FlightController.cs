@@ -29,5 +29,12 @@ namespace TicketSalesSystem.ReactUI.Controllers
         {
             return await _flightService.GetByIdAsync(id);
         }
+
+        [HttpGet]
+        [Route("getall")]
+        public async Task<IEnumerable<FlightDTO>> GetAll()
+        {
+            return await _flightService.GetAllAsync();
+        }
     }
 }

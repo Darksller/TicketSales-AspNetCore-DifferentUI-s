@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Ticket.css';
 import moment from "moment";
@@ -18,43 +18,56 @@ function Ticket({ ticket }) {
         return `${day}.${month}.${year} ${hours}:${minutes}`;
     }
 
+    async function fetchFlightData() {
+        try {
+            const response = await axios.get(`/flight/GetFlightById`, { params: { id: ticket.flightId } });
+            const data = response.data;
+            setFlight(data);
+            return data; // Возвращаем полученные данные
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async function fetchAirlineData() {
+        try {
+            const data = await fetchFlightData(); // Ждём завершения fetchFlightData
+            const response = await axios.get(`/airline/GetAirlineById`, { params: { id: data.airlineId } });
+            const airlineData = response.data;
+            setAirline(airlineData);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async function fetchRouteData() {
+        try {
+            const data = await fetchFlightData(); // Ждём завершения fetchFlightData
+            const response = await axios.get(`/route/GetRouteById`, { params: { id: data.routeId } });
+            const routeData = response.data;
+            setRoute(routeData);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async function fetchSeatTypeData() {
+        try {
+            const response = await axios.get(`/seatType/GetById`, { params: { id: ticket.seatTypeId } });
+            const data = response.data;
+            setSeatType(data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
     useEffect(() => {
-        axios.get(`/flight/GetFlightById`, { params: { id: ticket.flightId } })
-            .then(response => {
-                const data = response.data;
-                setFlight(data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        fetchAirlineData();
+        fetchRouteData();
+        fetchSeatTypeData();
+    }, []);
 
-        axios.get(`/airline/GetAirlineById`, { params: { id: flight.airlineId } })
-            .then(response => {
-                const data = response.data;
-                setAirline(data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-
-        axios.get(`/route/GetRouteById`, { params: { id: flight.routeId } })
-            .then(response => {
-                const data = response.data;
-                setRoute(data)
-            })
-            .catch(error => {
-                console.error(error);
-            });
-
-        axios.get(`/seatType/GetById`, { params: { id: ticket.seatTypeId } })
-            .then(response => {
-                const data = response.data;
-                setSeatType(data)
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }, [ticket.flightId, flight.routeId, flight.departureTime, flight.arrivalTime, flight.airlineId]);
 
     const departureTime = flight.departureTime;
     const arrivalTime = flight.arrivalTime;
@@ -65,7 +78,8 @@ function Ticket({ ticket }) {
 
     return (
         <div className="blockk">
-            <div className="airline-name">{airline.name}</div>
+            <div className="ticketNumber">Номер билета: {ticket.id}</div>
+            <div className="airlinee-name">{airline.name}</div>
             <div className="depPoint">{route.departurePoint}</div>
             <div className="arrPoint">{route.arrivalPoint}</div>
             <div className="depTime">{formatTime(flight.departureTime)}</div>
@@ -79,7 +93,7 @@ function Ticket({ ticket }) {
                 :
                 <div className="conf">Ожидает Подтверждения</div>
             }
-        </div >
+        </div>
     );
 
 }

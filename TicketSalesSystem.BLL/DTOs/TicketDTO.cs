@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TicketSalesSystem.DAL.Entities;
-
-namespace TicketSalesSystem.BLL.DTOs
+﻿namespace TicketSalesSystem.BLL.DTOs
 {
     public class TicketDTO
     {
@@ -16,6 +9,6 @@ namespace TicketSalesSystem.BLL.DTOs
         public int FlightId { get; set; }
         public int SeatTypeId { get; set; }
         public bool IsConfirmed { get; set; }
-        public Flight? Flight { get; set; }
+        public FlightDTO? Flight { get; set; }
     }
 }

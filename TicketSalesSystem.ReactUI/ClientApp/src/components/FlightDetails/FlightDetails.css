@@ -84,3 +84,8 @@
 .arrow {
     font-size: 20px;
 }
+
+.sold-out {
+    grid-row-start: 2;
+    grid-row-end: 3;
+}

@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using TicketSalesSystem.DAL.Data;
@@ -18,15 +20,17 @@ namespace TicketSalesSystem.DAL.Repositories
 
         public override async Task<IEnumerable<Ticket>> GetAllAsync()
         {
-            return await _dbSet.AsNoTracking().Include(a => a.User).Include(a => a.Flight).Include(a => a.SeatType).ToListAsync();
+            return await _dbSet.Include(a => a.User).Include(a => a.Flight).Include(a => a.SeatType).AsNoTracking().ToListAsync();
         }
 
         public async Task<IEnumerable<Ticket>> GetByFlightIdAsync(int flightId)
         {
-            return await _dbSet.AsNoTracking().Include(a => a.User).Include(a => a.Flight).Include(a => a.SeatType).Where(a => a.FlightId == flightId).ToListAsync();
+            return await _dbSet.Include(a => a.User).Include(a => a.Flight).Include(a => a.SeatType).AsNoTracking().Where(a => a.FlightId == flightId).ToListAsync();
         }
 
         public async override Task<Ticket> GetByIdAsync(int id) =>
-            await _dbSet.AsNoTracking().Include(a => a.User).Include(a => a.Flight).Include(a => a.SeatType).FirstOrDefaultAsync(a => a.Id == id);
+            await _dbSet.Include(a => a.User).Include(a => a.Flight).Include(a => a.SeatType).FirstOrDefaultAsync(a => a.Id == id);
+
+
     }
 }

@@ -3,7 +3,7 @@ import axios from 'axios';
 import './MyTickets.css';
 import EditUser from './EditUser';
 import { Context } from '../../index';
-import Ticket from './Ticket'
+import Ticket from '../Ticket/Ticket';
 
 function MyTickets() {
     const [tickets, setTickets] = useState([]);

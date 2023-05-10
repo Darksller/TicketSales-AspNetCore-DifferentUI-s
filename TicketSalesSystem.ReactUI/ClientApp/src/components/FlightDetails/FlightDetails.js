@@ -56,9 +56,6 @@ function FlightDetails({ flight }) {
             });
     }, [flight.airlineId, flight.airplaneId, flight.routeId]);
 
-    if (seatTypes.length === 0) {
-        return null;
-    }
 
     const departureTime = flight.departureTime;
     const arrivalTime = flight.arrivalTime;
@@ -99,10 +96,18 @@ function FlightDetails({ flight }) {
             <div className="depTime">{formatTime(flight.departureTime)}</div>
             <div className="arrTime">{formatTime(flight.arrivalTime)}</div>
             <div className="flightTime">Время в пути: {hours}ч {minutes}м</div>
-            <div className="price">Цена: {seatTypes[0].price + flight.price} - {seatTypes[seatTypes.length - 1].price + flight.price}</div>
+            {seatTypes.length > 0 ?
+                <div className="price">Цена: {seatTypes[0].price + flight.price} - {seatTypes[seatTypes.length - 1].price + flight.price}</div>
+                :
+                <div className="sold-out">Все билеты скуплены</div>
+            }
             <div className="arrow">⟶</div>
-            <button className="but" onClick={handleSelect}>Выбрать</button>
-        </div >
+            {seatTypes.length > 0 ?
+                <button className="but" onClick={handleSelect}>Выбрать</button>
+                :
+                null
+            }
+        </div>
     );
 }
 

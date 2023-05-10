@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicketSalesSystem.DAL.Data;
+using TicketSalesSystem.DAL.Entities;
 using TicketSalesSystem.DAL.Interfaces;
 
 namespace TicketSalesSystem.DAL.Repositories
@@ -12,7 +13,7 @@ namespace TicketSalesSystem.DAL.Repositories
     internal abstract class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         protected readonly DbSet<T> _dbSet;
-        protected ApplicationContext _context;
+        public ApplicationContext _context;
 
         public BaseRepository(ApplicationContext context)
         {
@@ -24,7 +25,7 @@ namespace TicketSalesSystem.DAL.Repositories
         public abstract Task<IEnumerable<T>> GetAllAsync();
         public async Task CreateAsync(T item)
         {
-            await _dbSet.AddAsync(item);
+            _dbSet.Add(item);
             await _context.SaveChangesAsync();
         }
 

@@ -30,6 +30,7 @@ export default class Store {
     }
 
     async login(email, password) {
+        this.setLoading(true);
         try {
             const response = await axios.post(`/user/login`, {
                 email: email,
@@ -54,10 +55,13 @@ export default class Store {
 
         } catch (e) {
             console.log(e.response?.data?.message);
+        } finally {
+            this.setLoading(false);
         }
     }
 
     async registration(email, password, name, passport, phone) {
+        this.setLoading(true);
         try {
             const response = await axios.post(`/user/registration`, {
                 email: email,
@@ -83,6 +87,8 @@ export default class Store {
             }
         } catch (e) {
             console.log(e.response?.data?.message);
+        } finally {
+            this.setLoading(false);
         }
     }
 

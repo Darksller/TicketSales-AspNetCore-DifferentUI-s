@@ -65,7 +65,6 @@ function Home() {
                     <button type="button" onClick={handleSearchClick}>Найти билет</button>
                 </div>
             </form>
-
         </div>
 
 

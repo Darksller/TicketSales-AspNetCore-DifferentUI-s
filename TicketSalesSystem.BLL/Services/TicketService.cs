@@ -37,7 +37,6 @@ namespace TicketSalesSystem.BLL.Services
 
             return entity;
         }
-
         public async Task<TicketDTO> DeleteAsync(TicketDTO entity)
         {
             var mappedEntity = _mapper.Map<Ticket>(entity);
@@ -58,11 +57,26 @@ namespace TicketSalesSystem.BLL.Services
             var mappedEntity = _mapper.Map<TicketDTO>(entity);
             return mappedEntity;
         }
+        public async Task<IEnumerable<TicketDTO>> GetUnconfirmedAsync()
+        {
+            var tickets = await _ticketRepository.GetAllAsync();
+            var confTick = tickets.Where(t => !t.IsConfirmed).ToList();
+            var mappedModel = _mapper.Map<IEnumerable<TicketDTO>>(confTick);
+            return mappedModel;
+        }
         public async Task<TicketDTO> UpdateAsync(TicketDTO entity)
         {
-            var mappedEntity = _mapper.Map<Ticket>(entity);
+            var ticket = await _ticketRepository.GetByIdAsync(entity.Id);
 
-            await _ticketRepository.UpdateAsync(mappedEntity);
+            if (ticket == null)
+                return null;
+
+            ticket.IsConfirmed = entity.IsConfirmed;
+            if (entity.Place != 0)
+                ticket.Place = entity.Place;
+            if (entity.Price != 0)
+                ticket.Price = entity.Price;
+            await _ticketRepository.UpdateAsync(ticket);
 
             return entity;
         }

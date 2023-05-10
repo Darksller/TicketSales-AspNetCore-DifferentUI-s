@@ -27,6 +27,14 @@ namespace TicketSalesSystem.ReactUI.Controllers
             return Ok(user);
         }
 
+        [HttpGet]
+        [Route("getbyid")]
+        public async Task<ActionResult<UserDTO>> GetById(int id)
+        {
+            var user = await _userService.GetByIdAsync(id);
+            return Ok(user);
+        }
+
         [HttpPut]
         [Route("updateuser")]
         public async Task<ActionResult<bool>> UpdateUser(UserDTO user)

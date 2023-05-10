@@ -20,5 +20,18 @@ namespace TicketSalesSystem.ReactUI.Controllers
         {
             await _ticketService.CreateAsync(ticket);
         }
+        [HttpPut]
+        [Route("update")]
+        public async Task Update(TicketDTO ticket)
+        {
+            await _ticketService.UpdateAsync(ticket);
+        }
+
+        [HttpGet]
+        [Route("getunconfirmed")]
+        public async Task<IEnumerable<TicketDTO>> GetUnconfirmed()
+        {
+            return await _ticketService.GetUnconfirmedAsync();
+        }
     }
 }
