@@ -6,6 +6,7 @@ import MyTickets from "./components/MyTickets/MyTickets";
 import BuyTicket from "./components/BuyTicket/BuyTicket";
 import ThankYouMessage from "./components/Thanks/ThankYouMessage";
 import ConfirmTickets from "./components/ConfirmTickets/ConfirmTickets"
+import AllFlights from "./components/AllFlights/AllFlights";
 const AppRoutes = [
     {
         index: true,
@@ -38,6 +39,10 @@ const AppRoutes = [
     {
         path: '/confirmTickets',
         element: <ConfirmTickets />
+    },
+    {
+        path: '/allflights',
+        element: <AllFlights />
     }
 
 ];

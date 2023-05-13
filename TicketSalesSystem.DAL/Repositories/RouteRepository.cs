@@ -17,10 +17,10 @@ namespace TicketSalesSystem.DAL.Repositories
         {
         }
 
-        public async override Task<Route> GetByIdAsync(int id) => await _dbSet.AsNoTracking().Include(r => r.Flights).FirstOrDefaultAsync(a => a.Id == id);
+        public async override Task<Route> GetByIdAsync(int id) => await _dbSet.Include(r => r.Flights).AsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
         public override async Task<IEnumerable<Route>> GetAllAsync()
         {
-            return await _dbSet.AsNoTracking().Include(r => r.Flights).ToListAsync();
+            return await _dbSet.Include(r => r.Flights).AsNoTracking().ToListAsync();
         }
     }
 }

@@ -18,11 +18,13 @@ namespace TicketSalesSystem.DAL.Repositories
 
         public override async Task<IEnumerable<Role>> GetAllAsync()
         {
-            return await _dbSet.AsNoTracking().Include(f => f.Users).ToListAsync();
+            return await _dbSet.Include(f => f.Users).AsNoTracking().ToListAsync();
         }
 
-        public async override Task<Role> GetByIdAsync(int id) => await _dbSet.AsNoTracking().Include(f => f.Users).FirstOrDefaultAsync(a => a.Id == id);
+        public async override Task<Role> GetByIdAsync(int id)
+            => await _dbSet.Include(f => f.Users).AsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
 
-        public async Task<Role> GetByNameAsync(string name) => await _dbSet.AsNoTracking().Include(f => f.Users).FirstOrDefaultAsync(a => a.Name == name);
+        public async Task<Role> GetByNameAsync(string name)
+            => await _dbSet.Include(f => f.Users).AsNoTracking().FirstOrDefaultAsync(a => a.Name == name);
     }
 }

@@ -5,15 +5,16 @@ import FlightDetails from "./FlightDetails";
 function AllFlights() {
     const [flights, setFlights] = useState([]);
 
-    useEffect(() => {
-        axios.get("/flight/getall")
-            .then(response => {
-                setFlights(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }, []);
+    const fetchFlights = async () => {
+        try {
+            const response = await axios.get("/flight/getall");
+            setFlights(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    fetchFlights();
+
 
     return (
         <div>

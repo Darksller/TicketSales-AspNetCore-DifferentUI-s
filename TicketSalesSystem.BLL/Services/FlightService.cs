@@ -10,13 +10,15 @@ namespace TicketSalesSystem.BLL.Services
     {
         private readonly IFlightRepository _flightRepository;
         private readonly IRouteRepository _routeRepository;
+        private readonly IFlightStatusRepository _flightStatusRepository;
         private readonly IMapper _mapper;
 
-        public FlightService(IMapper mapper, IFlightRepository flightRepository, IRouteRepository routeRepository)
+        public FlightService(IMapper mapper, IFlightRepository flightRepository, IRouteRepository routeRepository, IFlightStatusRepository flightStatusRepository)
         {
             _mapper = mapper;
             _flightRepository = flightRepository;
             _routeRepository = routeRepository;
+            _flightStatusRepository = flightStatusRepository;
         }
 
         public Task<FlightDTO> CreateAsync(FlightDTO entity)
@@ -27,9 +29,11 @@ namespace TicketSalesSystem.BLL.Services
         {
             throw new NotImplementedException();
         }
-        public Task<IEnumerable<FlightDTO>> GetAllAsync()
+        public async Task<IEnumerable<FlightDTO>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var ent = await _flightRepository.GetAllAsync();
+            var map = _mapper.Map<IEnumerable<FlightDTO>>(ent);
+            return map;
         }
         public async Task<FlightDTO> GetByIdAsync(int id)
         {
@@ -47,9 +51,28 @@ namespace TicketSalesSystem.BLL.Services
             }
             return _mapper.Map<IEnumerable<FlightDTO>>(flights);
         }
-        public Task<FlightDTO> UpdateAsync(FlightDTO entity)
+        public async Task<FlightDTO> UpdateAsync(FlightDTO entity)
         {
-            throw new NotImplementedException();
+            var existingFlight = await _flightRepository.GetByIdAsync(entity.Id);
+            if (entity.DepartureTime != null)
+                existingFlight.DepartureTime = entity.DepartureTime;
+            if (entity.ArrivalTime != null)
+                existingFlight.ArrivalTime = entity.ArrivalTime;
+            if (entity.AirplaneId != 0)
+                existingFlight.AirplaneId = entity.AirplaneId;
+            if (entity.FlightStatusId != 0)
+                existingFlight.FlightStatusId = entity.FlightStatusId;
+            if (entity.RouteId != 0)
+                existingFlight.RouteId = entity.RouteId;
+            if (entity.Price != 0)
+                existingFlight.Price = entity.Price;
+            existingFlight.FlightStatus = null;
+            existingFlight.Route = null;
+            existingFlight.Airplane = null;
+            existingFlight.Tickets = null;
+            existingFlight.Airline = null;
+            await _flightRepository.UpdateAsync(existingFlight);
+            return entity;
         }
     }
 }

@@ -1,16 +1,21 @@
-﻿using Azure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using TicketSalesSystem.BLL.DTOs;
 using TicketSalesSystem.BLL.Interfaces;
+using TicketSalesSystem.DAL.Interfaces;
 
 namespace TicketSalesSystem.BLL.Services
 {
     internal class FlightStatusService : IFlightStatusService
     {
+        private readonly IFlightStatusRepository _flightStatusRepository;
+        private readonly IMapper _mapper;
+
+        public FlightStatusService(IFlightStatusRepository flightStatusRepository, IMapper mapper)
+        {
+            _flightStatusRepository = flightStatusRepository;
+            _mapper = mapper;
+        }
+
         public Task<FlightStatusDTO> CreateAsync(FlightStatusDTO entity)
         {
             throw new NotImplementedException();
@@ -21,14 +26,18 @@ namespace TicketSalesSystem.BLL.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<FlightStatusDTO>> GetAllAsync()
+        public async Task<IEnumerable<FlightStatusDTO>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var ent = await _flightStatusRepository.GetAllAsync();
+            var mapped = _mapper.Map<IEnumerable<FlightStatusDTO>>(ent);
+            return mapped;
         }
 
-        public Task<FlightStatusDTO> GetByIdAsync(int id)
+        public async Task<FlightStatusDTO> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var ent = await _flightStatusRepository.GetByIdAsync(id);
+            var mapped = _mapper.Map<FlightStatusDTO>(ent);
+            return mapped;
         }
 
         public Task<FlightStatusDTO> UpdateAsync(FlightStatusDTO entity)

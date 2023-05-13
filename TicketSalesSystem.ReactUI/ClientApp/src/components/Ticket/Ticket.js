@@ -8,6 +8,7 @@ function Ticket({ ticket }) {
     const [route, setRoute] = useState({})
     const [flight, setFlight] = useState({})
     const [seatType, setSeatType] = useState({})
+    /*const [status, setStatus] = useState({})*/
     function formatTime(time) {
         const date = new Date(time);
         const day = date.getDate().toString().padStart(2, '0');
@@ -51,6 +52,17 @@ function Ticket({ ticket }) {
         }
     }
 
+    //async function fetchStatusData() {
+    //    try {
+    //        const data = await fetchFlightData(); // Ждём завершения fetchFlightData
+    //        const response = await axios.get(`/flightStatus/getbyid`, { params: { id: data.statusFlightId } });
+    //        const statusData = response.data;
+    //        setStatus(statusData);
+    //    } catch (error) {
+    //        console.error(error);
+    //    }
+    //}
+
     async function fetchSeatTypeData() {
         try {
             const response = await axios.get(`/seatType/GetById`, { params: { id: ticket.seatTypeId } });
@@ -65,6 +77,7 @@ function Ticket({ ticket }) {
     useEffect(() => {
         fetchAirlineData();
         fetchRouteData();
+        /*fetchStatusData();*/
         fetchSeatTypeData();
     }, []);
 
@@ -87,6 +100,7 @@ function Ticket({ ticket }) {
             <div className="flightTime">Время в пути: {hours}ч {minutes}м</div>
             <div className="arrow">⟶</div>
             <div className="place">Место: {ticket.place}</div>
+            {/* <div className="status">{status.name}</div>*/}
             <div className="seatType">{seatType.name}</div>
             {ticket.isConfirmed ?
                 <div className="conf">Подтвержден</div>

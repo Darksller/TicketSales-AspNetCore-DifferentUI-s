@@ -12,6 +12,7 @@ namespace TicketSalesSystem.BLL.DTOs
         public DateTime DepartureTime { get; set; }
         public DateTime ArrivalTime { get; set; }
         public int AirplaneId { get; set; }
+        public int FlightStatusId { get; set; }
         public int AirlineId { get; set; }
         public int RouteId { get; set; }
         public Decimal Price { get; set; }

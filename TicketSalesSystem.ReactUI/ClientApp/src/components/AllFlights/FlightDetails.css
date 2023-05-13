@@ -1,0 +1,19 @@
+﻿.status {
+    grid-row: 3;
+    grid-column: 2;
+}
+
+.buttons {
+    grid-row: 4;
+    grid-column: 2;
+}
+
+.picker {
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.Form {
+    width: 50%; /* уменьшаем ширину до 50% */
+    margin: auto;
+    text-align: center; /* выравниваем содержимое по центру */
+}

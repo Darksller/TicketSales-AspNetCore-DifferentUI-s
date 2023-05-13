@@ -18,10 +18,11 @@ namespace TicketSalesSystem.DAL.Repositories
 
         public override async Task<IEnumerable<Airplane>> GetAllAsync()
         {
-            return await _dbSet.AsNoTracking().Include(a => a.SeatTypes).Include(a => a.Flights).ToListAsync();
+            return await _dbSet.Include(a => a.SeatTypes).Include(a => a.Flights).AsNoTracking().ToListAsync();
         }
 
         public async override Task<Airplane> GetByIdAsync(int id) =>
-            await _dbSet.AsNoTracking().Include(a => a.SeatTypes).Include(a => a.Flights).FirstOrDefaultAsync(a => a.Id == id);
+            await _dbSet.Include(a => a.SeatTypes).Include(a => a.Flights)
+            .AsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
     }
 }

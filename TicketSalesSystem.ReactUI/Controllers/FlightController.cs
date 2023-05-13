@@ -36,5 +36,11 @@ namespace TicketSalesSystem.ReactUI.Controllers
         {
             return await _flightService.GetAllAsync();
         }
+        [HttpPut]
+        [Route("update")]
+        public async Task Update(FlightDTO flightDTO)
+        {
+            await _flightService.UpdateAsync(flightDTO);
+        }
     }
 }
