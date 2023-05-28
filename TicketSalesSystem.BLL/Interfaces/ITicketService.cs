@@ -10,6 +10,6 @@ namespace TicketSalesSystem.BLL.Interfaces
     public interface ITicketService : IBaseService<TicketDTO>
     {
         public Task<IEnumerable<TicketDTO>> GetUnconfirmedAsync();
-
+        Task<IEnumerable<TicketDTO>> GetByUserIdAsync(int userId);
     }
 }

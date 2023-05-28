@@ -149,9 +149,9 @@ namespace TicketSalesSystem.BLL.Services
         {
             throw new NotImplementedException();
         }
-        public Task<IEnumerable<UserDTO>> GetAllAsync()
+        public async Task<IEnumerable<UserDTO>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return _mapper.Map<IEnumerable<UserDTO>>(await  _userRepository.GetAllAsync());
         }
         public async Task<UserDTO> GetByIdAsync(int id)
         {

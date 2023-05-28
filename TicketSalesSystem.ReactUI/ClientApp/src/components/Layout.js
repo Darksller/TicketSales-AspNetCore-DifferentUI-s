@@ -1,4 +1,5 @@
 import { Container } from 'reactstrap';
+import Footer from './Footer/Footer';
 import NavMenu from './NavMenu/NavMenu';
 
 function Layout(props) {
@@ -8,7 +9,7 @@ function Layout(props) {
             <Container tag="main">
                 {props.children}
             </Container>
-        </div>
+        </div >
     );
 }
 

@@ -1,11 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Update.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using TicketSalesSystem.DAL.Data;
 using TicketSalesSystem.DAL.Entities;
 using TicketSalesSystem.DAL.Interfaces;
@@ -20,8 +13,17 @@ namespace TicketSalesSystem.DAL.Repositories
 
         public override async Task<IEnumerable<Ticket>> GetAllAsync()
         {
-            return await _dbSet.Include(a => a.User).Include(a => a.Flight)
-                .Include(a => a.SeatType).AsNoTracking().ToListAsync();
+            return await _dbSet
+                .Include(a => a.User)
+                .Include(a => a.Flight)
+                    .ThenInclude(f => f.Route)
+                .Include(a => a.Flight)
+                    .ThenInclude(f => f.Airline)
+                .Include(a => a.Flight)
+                    .ThenInclude(f => f.Airplane)
+                .Include(a => a.SeatType)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Ticket>> GetByFlightIdAsync(int flightId)

@@ -28,20 +28,29 @@ namespace TicketSalesSystem.BLL.Services
             int i = 0;
             for (; i < seatTypes.Max(s => s.MaxCount) && i < tickets.Count(); i++) ;
             entity.Place = i + 1;
-            var seatType = seatTypes.Where(s => s.Id == entity.SeatTypeId).FirstOrDefault();
-            seatType.Count -= 1;
-            await _seatTypeRepository.UpdateAsync(seatType);
-            var mappedEntity = _mapper.Map<Ticket>(entity);
-            await _ticketRepository.CreateAsync(mappedEntity);
 
+            var seatType = await _seatTypeRepository.GetByIdAsync(entity.SeatTypeId);
+            if (seatType != null)
+            {
+                if (seatType.MaxCount - seatType.Tickets.Count() - 1 == 0)
+                    return null;
+                var mappedEntity = _mapper.Map<Ticket>(entity);
+                mappedEntity.User = null;
+                mappedEntity.Flight = null;
+                mappedEntity.SeatType = null;
+                mappedEntity.SeatTypeId = seatType.Id;
+                await _ticketRepository.CreateAsync(mappedEntity);
+            }
 
             return entity;
         }
         public async Task<TicketDTO> DeleteAsync(TicketDTO entity)
         {
-            var mappedEntity = _mapper.Map<Ticket>(entity);
-
-            await _ticketRepository.DeleteAsync(mappedEntity);
+            var ticket = await _ticketRepository.GetByIdAsync(entity.Id);
+            ticket.User = null;
+            ticket.Flight = null;
+            ticket.SeatType = null;
+            await _ticketRepository.DeleteAsync(ticket);
 
             return entity;
         }
@@ -57,6 +66,13 @@ namespace TicketSalesSystem.BLL.Services
             var mappedEntity = _mapper.Map<TicketDTO>(entity);
             return mappedEntity;
         }
+
+        public async Task<IEnumerable<TicketDTO>> GetByUserIdAsync(int userId)
+        {
+            var tickets = (await _ticketRepository.GetAllAsync()).Where(t => t.UserId == userId).ToList();
+            return _mapper.Map<IEnumerable<TicketDTO>>(tickets);
+        }
+
         public async Task<IEnumerable<TicketDTO>> GetUnconfirmedAsync()
         {
             var tickets = await _ticketRepository.GetAllAsync();
@@ -76,6 +92,9 @@ namespace TicketSalesSystem.BLL.Services
                 ticket.Place = entity.Place;
             if (entity.Price != 0)
                 ticket.Price = entity.Price;
+            ticket.User = null;
+            ticket.Flight = null;
+            ticket.SeatType = null;
             await _ticketRepository.UpdateAsync(ticket);
 
             return entity;

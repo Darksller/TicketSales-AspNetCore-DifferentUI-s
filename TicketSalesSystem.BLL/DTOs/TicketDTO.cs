@@ -9,6 +9,6 @@
         public int FlightId { get; set; }
         public int SeatTypeId { get; set; }
         public bool IsConfirmed { get; set; }
-        public FlightDTO? Flight { get; set; }
+        public FlightDTO? Flight { get; set; } = null;
     }
 }

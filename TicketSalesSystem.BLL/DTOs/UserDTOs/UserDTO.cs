@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using TicketSalesSystem.DAL.Entities;
-
-namespace TicketSalesSystem.BLL.DTOs.UserDTOs
+﻿namespace TicketSalesSystem.BLL.DTOs.UserDTOs
 {
     public class UserDTO
     {

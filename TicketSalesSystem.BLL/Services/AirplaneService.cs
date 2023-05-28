@@ -1,16 +1,21 @@
-﻿using Azure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using TicketSalesSystem.BLL.DTOs;
 using TicketSalesSystem.BLL.Interfaces;
+using TicketSalesSystem.DAL.Interfaces;
 
 namespace TicketSalesSystem.BLL.Services
 {
     internal class AirplaneService : IAirplaneService
     {
+        private readonly IAirplaneRepository _airplaneRepository;
+        private readonly IMapper _mapper;
+
+        public AirplaneService(IAirplaneRepository airplaneRepository, IMapper mapper)
+        {
+            _airplaneRepository = airplaneRepository;
+            _mapper = mapper;
+        }
+
         public Task<AirplaneDTO> CreateAsync(AirplaneDTO entity)
         {
             throw new NotImplementedException();
@@ -26,9 +31,9 @@ namespace TicketSalesSystem.BLL.Services
             throw new NotImplementedException();
         }
 
-        public Task<AirplaneDTO> GetByIdAsync(int id)
+        public async Task<AirplaneDTO> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<AirplaneDTO>(await _airplaneRepository.GetByIdAsync(id));
         }
 
         public Task<AirplaneDTO> UpdateAsync(AirplaneDTO entity)

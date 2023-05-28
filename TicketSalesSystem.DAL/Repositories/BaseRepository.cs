@@ -1,11 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TicketSalesSystem.DAL.Data;
-using TicketSalesSystem.DAL.Entities;
 using TicketSalesSystem.DAL.Interfaces;
 
 namespace TicketSalesSystem.DAL.Repositories
@@ -27,18 +21,21 @@ namespace TicketSalesSystem.DAL.Repositories
         {
             _dbSet.Add(item);
             await _context.SaveChangesAsync();
+            _context.Entry(item).State = EntityState.Detached;
         }
 
         public async Task UpdateAsync(T item)
         {
             _dbSet.Update(item);
             await _context.SaveChangesAsync();
+            _context.Entry(item).State = EntityState.Detached;
         }
 
         public async Task DeleteAsync(T item)
         {
             _dbSet.Remove(item);
             await _context.SaveChangesAsync();
+            _context.Entry(item).State = EntityState.Detached;
         }
     }
 }

@@ -13,13 +13,13 @@ namespace TicketSalesSystem.DAL.Entities
         public DateTime ArrivalTime { get; set; }
         public Decimal Price { get; set; }
         public int FlightStatusId { get; set; }
-        public FlightStatus? FlightStatus { get; set; }
+        public FlightStatus? FlightStatus { get; set; } = null;
         public int RouteId { get; set; }
-        public Route? Route { get; set; }
+        public Route? Route { get; set; } = null;
         public int AirplaneId { get; set; }
-        public Airplane? Airplane { get; set; }
-        public List<Ticket> Tickets { get; set; } = new();
+        public Airplane? Airplane { get; set; } = null;
+        public List<Ticket>? Tickets { get; set; } = null;
         public int AirlineId { get; set; }
-        public Airline Airline { get; set; } = new();
+        public Airline? Airline { get; set; } = null;
     }
 }

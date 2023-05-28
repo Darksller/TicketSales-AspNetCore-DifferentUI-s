@@ -4,6 +4,7 @@ using TicketSalesSystem.BLL.Configurations;
 using Swashbuckle.AspNetCore.Filters;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Builder;
+using System.Text.Json;
 
 namespace TicketSalesSystem.ReactUI
 {
@@ -29,6 +30,10 @@ namespace TicketSalesSystem.ReactUI
                                builder.Configuration.GetSection("Secret").Value!))
                 };
             });
+
+            builder.Services.AddControllersWithViews().AddNewtonsoftJson(
+                options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
 
             var app = builder.Build();
 

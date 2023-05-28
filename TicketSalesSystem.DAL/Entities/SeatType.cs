@@ -14,7 +14,7 @@ namespace TicketSalesSystem.DAL.Entities
         public int Count { get; set; }
         public int MaxCount { get; set; }
         public int AirplaneId { get; set; }
-        public Airplane? Airplane { get; set; }
-        public List<Ticket> Tickets { get; set; } = new();
+        public Airplane? Airplane { get; set; } = null;
+        public List<Ticket>? Tickets { get; set; } = null;
     }
 }

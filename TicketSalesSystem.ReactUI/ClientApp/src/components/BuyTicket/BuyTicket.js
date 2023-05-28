@@ -50,7 +50,10 @@ function BuyTicket() {
         const user = response.data;
 
         const selectedSeatType = seatTypes.find((seatType) => parseInt(seatType.price) === parseInt(selectedSeatTypePrice));
-
+        navigate('/ThankYouMessage', {
+            state: { name: user.name }
+        });
+        setShowConfirmation(false);
         await axios.post("/ticket/buyticket", {
             price: selectedPrice,
             userId: user.id,
@@ -59,10 +62,7 @@ function BuyTicket() {
             isConfirmed: false
         });
         await axios.post('/email/send', { to: user.email, subject: `Билет зарезервирован`, text: `Билет на сумму ${selectedPrice} был зарезервирован, номер билета можно посмотреть в личном кабинете\nОжидайте подтверждения` });
-        navigate('/ThankYouMessage', {
-            state: { name: user.name }
-        });
-        setShowConfirmation(false);
+        
     }
 
     function handleCancel() {

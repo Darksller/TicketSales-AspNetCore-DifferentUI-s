@@ -1,10 +1,4 @@
 ﻿using AutoMapper;
-using Azure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TicketSalesSystem.BLL.DTOs;
 using TicketSalesSystem.BLL.Interfaces;
 using TicketSalesSystem.DAL.Interfaces;

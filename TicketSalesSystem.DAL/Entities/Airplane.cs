@@ -11,7 +11,7 @@ namespace TicketSalesSystem.DAL.Entities
         public int Id { get; set; }
         public string Name { get; set; } = String.Empty;
         public int Speed { get; set; }
-        public List<SeatType> SeatTypes { get; set; } = new();
-        public List<Flight> Flights { get; set; } = new List<Flight>();
+        public List<SeatType>? SeatTypes { get; set; } = null;
+        public List<Flight>? Flights { get; set; } = null;
     }
 }

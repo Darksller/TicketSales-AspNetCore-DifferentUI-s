@@ -1,0 +1,61 @@
+﻿<Window x:Class="TicketSalesSystem.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:TicketSalesSystem.WPF.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="872">
+
+    <Window.Resources>
+        <viewmodels:FlightViewModel x:Key="FlightViewModel" />
+        <viewmodels:TicketViewModel x:Key="TicketViewModel" />
+    </Window.Resources>
+
+    <Grid Margin="0,0,0,61">
+        <Label Content="Система продажи авиабилетов" HorizontalAlignment="Left" Margin="291,10,0,0" VerticalAlignment="Top" Height="40" Width="318" Foreground="White" Background="#FF6E0FFF" BorderBrush="White" FontWeight="Bold" FontSize="20"/>
+
+        <Button DataContext="{StaticResource TicketViewModel}" Command="{Binding BookCommand}" CommandParameter="{Binding SelectedItem, ElementName=flightGrid}" Content="Забронировать рейс" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top"/>
+
+        <Label Content="Номер рейса:" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top"/>
+        <TextBox DataContext="{StaticResource FlightViewModel}" Text="{Binding FlightNumberTextBox}" HorizontalAlignment="Left" Margin="10,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+        <Label Content="Цена билета:" HorizontalAlignment="Left" Margin="10,139,0,0" VerticalAlignment="Top"/>
+        <TextBox DataContext="{StaticResource FlightViewModel}" Text="{Binding PriceTextBox}" HorizontalAlignment="Left" Margin="10,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+        <Button DataContext="{StaticResource FlightViewModel}" Command="{Binding SortCommand}" Content="Отсортировать" HorizontalAlignment="Left" Margin="10,205,0,0" VerticalAlignment="Top" Background="#FF4200FF" BorderBrush="White" Foreground="White" Height="27" Width="120"/>
+        <Button DataContext="{StaticResource FlightViewModel}" Command="{Binding ResetCommand}" Content="Сбросить " HorizontalAlignment="Left" Margin="8,237,0,0" VerticalAlignment="Top" Background="#FF4200FF" BorderBrush="White" Foreground="White" Height="27" Width="120"/>
+
+        <Button DataContext="{StaticResource TicketViewModel}" Command="{Binding RejectCommand}" CommandParameter="{Binding SelectedItem, ElementName=ticketGrid}" Content="Отказаться от билета" HorizontalAlignment="Left" Margin="10,330,0,0" VerticalAlignment="Top"/>
+
+        <Label Content="Доступные рейсы:" HorizontalAlignment="Left" Margin="135,29,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.117,1.471"/>
+        <DataGrid x:Name="flightGrid" ItemsSource="{Binding Source={StaticResource FlightViewModel}, Path=Flights}" AutoGenerateColumns="False" Margin="135,55,10,185" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Номер рейса" Binding="{Binding Id}" />
+                <DataGridTextColumn Header="Откуда" Binding="{Binding Route.DeparturePoint}" />
+                <DataGridTextColumn Header="Куда" Binding="{Binding Route.ArrivalPoint}" />
+                <DataGridTextColumn Header="Время вылета" Binding="{Binding DepartureTime}" />
+                <DataGridTextColumn Header="Время прилета" Binding="{Binding ArrivalTime}" />
+                <DataGridTextColumn Header="Авиакомпания" Binding="{Binding Airline.Name}" />
+                <DataGridTextColumn Header="Самолет" Binding="{Binding Airplane.Name}" />
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Label Content="Мои билеты:" HorizontalAlignment="Left" Margin="135,206,0,0" VerticalAlignment="Top"/>
+        <DataGrid x:Name="ticketGrid" ItemsSource="{Binding Source={StaticResource TicketViewModel}, Path=Tickets}" AutoGenerateColumns="False" Margin="135,232,9,-59" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="65" Header="№ билета" Binding="{Binding Id}" />
+                <DataGridTextColumn Header="Место" Binding="{Binding Place}" />
+                <DataGridTextColumn Header="Откуда" Binding="{Binding Flight.Route.DeparturePoint}" />
+                <DataGridTextColumn Header="Куда" Binding="{Binding Flight.Route.ArrivalPoint}" />
+                <DataGridTextColumn Header="Время вылета" Binding="{Binding Flight.DepartureTime}" />
+                <DataGridTextColumn Header="Время прилета" Binding="{Binding Flight.ArrivalTime}" />
+                <DataGridTextColumn Header="Авиакомпания" Binding="{Binding Flight.Airline.Name}" />
+                <DataGridTextColumn Header="Самолет" Binding="{Binding Flight.Airplane.Name}" />
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>

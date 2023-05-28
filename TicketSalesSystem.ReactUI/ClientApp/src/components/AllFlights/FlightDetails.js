@@ -140,8 +140,8 @@ function FlightDetails({ flight }) {
 
     const [flightStatuses, setFlightStatuses] = useState([]);
     const [editedFlightStatus, setEditedFlightStatus] = useState("");
-    const handleStatusChange = (event) => {
-        setEditedFlightStatus(event.target.value);
+        const handleStatusChange = (event) => {
+            setEditedFlightStatus(event.target.value);
     };
     const flightStatusElement = isEditing ? (
         <Form.Select onChange={handleStatusChange} className="Form">

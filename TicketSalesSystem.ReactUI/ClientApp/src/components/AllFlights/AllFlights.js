@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import FlightDetails from "./FlightDetails";
-
+    
 function AllFlights() {
     const [flights, setFlights] = useState([]);
 
