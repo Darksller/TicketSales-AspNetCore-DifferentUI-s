@@ -1,8 +1,56 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using TicketSalesSystem.BLL.DTOs;
+@{
+	ViewData["Title"] = "Home Page";
 }
+@model IEnumerable<FlightDTO>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<h1 class="display-4 text-center">Поиск рейсов</h1>
+			<form asp-action="Index" asp-controller="Flight">
+				<div class="form-group">
+					<label for="departure">Откуда:</label>
+					<input type="text" class="form-control" required name="departure" id="departure" placeholder="Введите город отправки">
+				</div>
+				<div class="form-group">
+					<label for="arrival">Куда:</label>
+					<input type="text" class="form-control" required name="arrival" id="arrival" placeholder="Введите город прибытия">
+				</div>
+				<div class="form-group">
+					<label for="date">Дата отправки:</label>
+					<input type="date" class="form-control" required name="date" id="date">
+				</div>
+				<div class="text-center" style="margin-top: 10px; margin-bottom: 20px">
+					<button type="submit" class="btn btn-primary btn-lg">Найти</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<div class="row">
+	@foreach (var flight in Model)
+	{
+		<div class="col-md-4">
+			<div class="card mb-4">
+				<div class="card-body">
+					<h3 class="card-text">Номер рейса: @flight.Id</h3>
+					<p class="card-text">Откуда: @Model.First().Route.DeparturePoint</p>
+					<p class="card-text">Куда: @Model.First().Route.ArrivalPoint</p>
+					<p class="card-text">Дата отправления: @flight.DepartureTime</p>
+					<p class="card-text">Дата прибытия: @flight.ArrivalTime</p>
+					<p class="card-text">Цена: @flight.Price</p>
+					<form action="@Url.Action("ThankYou", "Ticket")" method="post">
+						<input type="hidden" name="flightId" value="@flight.Id" />
+						<input type="hidden" name="userId" value="8" />
+						<input type="hidden" name="seatTypeId" value=@flight.Airplane.SeatTypes[0].Id />
+						<input type="hidden" name="price" value=@flight.Price />
+						<button type="submit" class="btn btn-primary">Купить</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	}
 </div>

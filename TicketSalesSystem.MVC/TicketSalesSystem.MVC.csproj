@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TicketSalesSystem.BLL\TicketSalesSystem.BLL.csproj" />
+  </ItemGroup>
+
 </Project>
