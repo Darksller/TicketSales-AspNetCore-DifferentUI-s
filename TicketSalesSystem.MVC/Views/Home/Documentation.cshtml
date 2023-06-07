@@ -1,0 +1,238 @@
+﻿<h1>Документация API</h1>
+<h2>Методы</h2>
+<h3>Post api/Flight/search</h3>
+<p>Возвращает список рейсов по критерию</p>
+<h4>Параметры</h4>
+<p>DeparturePoint, ArrivalPoint, DepartureTime</p>
+<h4>Ответы</h4>
+<p>200 OK - успешный запрос, возвращает список рейсов в формате JSON.</p>
+<p>400 Undocumented - переданы не все параметры</p>
+<h4>Пример</h4>
+<pre>
+<code>
+post api/Flight/search
+Host: http://localhost:5072/
+	  </code>
+	</pre>
+<h4>Параметры</h4>
+<pre>
+	{
+	  "departurePoint": "гомель",
+	  "arrivalPoint": "токио",
+	  "departureTime": "2023-05-20T12:35:28.917Z"
+	}
+</pre>
+<p>Ответ:</p>
+<pre>
+		200 OK
+		[
+		  {
+			"id": 12,
+			"departureTime": "2023-05-20T00:00:00",
+			"arrivalTime": "2023-05-31T00:00:00",
+			"airplaneId": 2,
+			"airplane": null,
+			"flightStatusId": 1,
+			"flightStatus": null,
+			"airlineId": 1,
+			"airline": null,
+			"routeId": 1,
+			"route": {
+			  "id": 1,
+			  "departurePoint": "Гомель",
+			  "arrivalPoint": "Токио",
+			  "flights": [
+				{
+				  "id": 14,
+				  "departureTime": "2023-05-20T00:00:00",
+				  "arrivalTime": "2023-05-21T00:00:00",
+				  "airplaneId": 1,
+				  "airplane": null,
+				  "flightStatusId": 1,
+				  "flightStatus": null,
+				  "airlineId": 2,
+				  "airline": null,
+				  "routeId": 1,
+				  "price": 1111
+				}
+			  ]
+			},
+			"price": 111110
+		  },
+		  {
+			"id": 14,
+			"departureTime": "2023-05-20T00:00:00",
+			"arrivalTime": "2023-05-21T00:00:00",
+			"airplaneId": 1,
+			"airplane": null,
+			"flightStatusId": 1,
+			"flightStatus": null,
+			"airlineId": 2,
+			"airline": null,
+			"routeId": 1,
+			"route": {
+			  "id": 1,
+			  "departurePoint": "Гомель",
+			  "arrivalPoint": "Токио",
+			  "flights": [
+				{
+				  "id": 12,
+				  "departureTime": "2023-05-20T00:00:00",
+				  "arrivalTime": "2023-05-31T00:00:00",
+				  "airplaneId": 2,
+				  "airplane": null,
+				  "flightStatusId": 1,
+				  "flightStatus": null,
+				  "airlineId": 1,
+				  "airline": null,
+				  "routeId": 1,
+				  "price": 111110
+				}
+			  ]
+			},
+			"price": 1111
+		  }
+		]
+	</pre>
+
+
+<h3>GET api/Flight/{id}</h3>
+<p>Возвращает рейс по айди</p>
+<h4>Параметры</h4>
+<p>id</p>
+<h4>Ответы</h4>
+<p>200 OK - успешный запрос, возвращает рейс по указанному id.</p>
+<p>404 - Not Found: ресурс по запросу не найден</p>
+<h4>Пример</h4>
+<pre>
+<code>
+api/Flight/12
+Host: http://localhost:5072/
+	  </code>
+	</pre>
+<p>Ответ:</p>
+<pre>
+		200 OK
+		{
+		  "id": 12,
+		  "departureTime": "2023-05-20T00:00:00",
+		  "arrivalTime": "2023-05-31T00:00:00",
+		  "airplaneId": 2,
+		  "airplane": {
+			"id": 2,
+			"name": "Штайфен",
+			"speed": 1200,
+			"seatTypes": [
+			  {
+				"id": 12,
+				"name": "Бизнес",
+				"price": 0,
+				"count": 100,
+				"maxCount": 100
+			  },
+			  {
+				"id": 13,
+				"name": "Люкс",
+				"price": 1000,
+				"count": 20,
+				"maxCount": 20
+			  },
+			  {
+				"id": 14,
+				"name": "Ультралюкс",
+				"price": 9999,
+				"count": 1,
+				"maxCount": 1
+			  }
+			]
+		  },
+		  "flightStatusId": 1,
+		  "flightStatus": {
+			"id": 1,
+			"name": "На земле"
+		  },
+		  "airlineId": 1,
+		  "airline": {
+			"id": 1,
+			"name": "Белавиа",
+			"email": "belavia@gmail.com"
+		  },
+		  "routeId": 1,
+		  "route": {
+			"id": 1,
+			"departurePoint": "Гомель",
+			"arrivalPoint": "Токио",
+			"flights": []
+		  },
+		  "price": 111110
+		}
+
+	</pre>
+
+<h3>PUT api/Flight</h3>
+<p>Изменяет рейс</p>
+<h4>Параметры</h4>
+<p>Flight</p>
+<p>Oбъект для изменения</p>
+<h4>Ответы</h4>
+<p>200 OK - успешный запрос, возвращает список автомобилей в формате JSON.</p>
+<p>404 - Not Found ресурс по запросу не найден</p>
+<p>400 Undocumented - переданы не все параметры</p>
+
+<h4>Пример</h4>
+<pre>
+<code>
+PUT api/Flight
+Host: http://localhost:5072/
+	  </code>
+	</pre>
+<p>Ответ:</p>
+<pre>
+		200 OK
+		{
+		  "id": 14,
+		  "departureTime": "2023-05-25T00:00:00",
+		  "arrivalTime": "2023-05-21T00:00:00",
+		  "airplaneId": 1,
+		  "airplane": {
+			"id": 1,
+			"name": "Аэробус-415",
+			"speed": 415,
+			"seatTypes": [
+			  {
+				"id": 10,
+				"name": "Бизнес",
+				"price": 0,
+				"count": 46,
+				"maxCount": 50
+			  },
+			  {
+				"id": 11,
+				"name": "Люкс",
+				"price": 500,
+				"count": 10,
+				"maxCount": 10
+			  }
+			]
+		  },
+		  "flightStatusId": 1,
+		  "flightStatus": {
+			"id": 1,
+			"name": "На земле"
+		  },
+		  "airlineId": 2,
+		  "airline": {
+			"id": 2,
+			"name": "Интер",
+			"email": "inter@gmail.com"
+		  },
+		  "routeId": 1,
+		  "route": {
+			"id": 1,
+			"departurePoint": "Гомель",
+			"arrivalPoint": "Токио",
+			"flights": []
+		  },
+		  "price": 1111
+		}
+	</pre>

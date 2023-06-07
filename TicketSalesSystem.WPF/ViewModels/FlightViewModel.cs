@@ -23,7 +23,7 @@ namespace TicketSalesSystem.WPF.ViewModels
         private ObservableCollection<FlightModel> _flights = new();
         public FlightViewModel()
         {
-            var configuration = new ConfigurationBuilder()
+            var configuration = new ConfigurationBuilder() 
                 .AddJsonFile("appsettings.json")
                 .Build();
 

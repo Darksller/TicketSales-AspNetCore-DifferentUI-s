@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TicketSalesSystem.BLL.Interfaces;
-using TicketSalesSystem.MVC.Models;
+using TicketSalesSystem.MVC.Identity.Models;
 
-namespace TicketSalesSystem.MVC.Controllers
+namespace TicketSalesSystem.MVC.Identity.Controllers
 {
 	public class HomeController : Controller
 	{
@@ -21,11 +21,6 @@ namespace TicketSalesSystem.MVC.Controllers
 			var res = await _flightService.GetAllAsync();
 
 			return View(res);
-		}
-
-		public IActionResult Documentation()
-		{
-			return View();
 		}
 
 		public IActionResult Privacy()

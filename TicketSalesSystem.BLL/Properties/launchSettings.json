@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "TicketSalesSystem.BLL": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:59577;http://localhost:59579"
+    }
+  }
+}

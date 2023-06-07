@@ -1,0 +1,86 @@
+﻿@using TicketSalesSystem.BLL.DTOs;
+@model IEnumerable<FlightDTO>
+
+@if (Model == null || !Model.Any())
+{
+	<h1>Рейсы не найдены.</h1>
+}
+else
+{
+	<div class="row">
+		@foreach (var flight in Model)
+		{
+			<div class="col-md-4">
+				<div class="card mb-4">
+					<div class="card-body">
+						<h3 class="card-text">Номер рейса: @flight.Id</h3>
+						<p class="card-text">Откуда: @Model.First().Route.DeparturePoint</p>
+						<p class="card-text">Куда: @Model.First().Route.ArrivalPoint</p>
+						<p class="card-text">Дата отправления: @flight.DepartureTime</p>
+						<p class="card-text">Дата прибытия: @flight.ArrivalTime</p>
+						<p class="card-text">Цена: @flight.Price</p>
+						<button class="btn btn-primary" onclick="showDateModal('@flight.Id')">Изменить даты</button>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+}
+
+<div id="dateModal" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Изменить даты рейса</h5>
+			</div>
+			<div class="modal-body">
+				<form id="dateForm">
+					<div class="form-group">
+						<label for="departureDate">Новая дата отправления:</label>
+						<input type="date" class="form-control" id="departureDate" required>
+					</div>
+					<div class="form-group">
+						<label for="arrivalDate">Новая дата прибытия:</label>
+						<input type="date" class="form-control" id="arrivalDate" required>
+					</div>
+					<button type="submit" class="btn btn-primary" style="margin-top:10px;">Сохранить</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	function showDateModal(flightId) {
+		$('#dateModal').modal('show');
+
+		$('#dateForm').submit(function (e) {
+			e.preventDefault();
+			var departureDate = $('#departureDate').val();
+			var arrivalDate = $('#arrivalDate').val();
+
+			$.ajax({
+				url: '/Flight/update',
+				type: 'PUT',
+				data: {
+					flight: {
+						id: flightId,
+						departureTime: departureDate,
+						arrivalTime: arrivalDate
+					}
+				},
+				success: function (response) {
+
+				},
+				error: function (xhr) {
+					console.log(xhr.responseText);
+				}
+			});
+
+			$('#departureDate_' + flightId).text(departureDate);
+			$('#arrivalDate_' + flightId).text(arrivalDate);
+
+			$('#dateModal').modal('hide');
+		});
+	}
+</script>

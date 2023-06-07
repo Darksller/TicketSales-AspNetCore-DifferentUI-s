@@ -1,0 +1,43 @@
+﻿@using TicketSalesSystem.BLL.DTOs;
+@model IEnumerable<FlightDTO>
+
+@if (Model == null || !Model.Any())
+{
+	<h1>Рейсы не найдены.</h1>
+}
+else
+{
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="card mb-4">
+					<div class="card-body">
+						<h3 class="card-text">Откуда: @Model.First().Route.DeparturePoint</h3>
+						<h3 class="card-text">Куда: @Model.First().Route.ArrivalPoint</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			@foreach (var flight in Model)
+			{
+				<div class="col-md-4">
+					<div class="card mb-4">
+						<div class="card-body">
+							<p class="card-text">Номер рейса: @flight.Id</p>
+							<p class="card-text">Дата отправления: @flight.DepartureTime</p>
+							<p class="card-text">Дата прибытия: @flight.ArrivalTime</p>
+							<p class="card-text">Цена: @flight.Price</p>
+							<form action="@Url.Action("ThankYou", "Ticket")" method="post">
+								<input type="hidden" name="flightId" value="@flight.Id" />
+								<input type="hidden" name="userId" value="8" />
+								<button type="submit" class="btn btn-primary">Купить</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+}
+

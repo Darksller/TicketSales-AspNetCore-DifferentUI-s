@@ -7,13 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketSalesSystem.DAL", "Ti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketSalesSystem.BLL", "TicketSalesSystem.BLL\TicketSalesSystem.BLL.csproj", "{0F9EC369-B788-4CD2-BE96-942F0F6C93F7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketSalesSystem.ReactUI", "TicketSalesSystem.ReactUI\TicketSalesSystem.ReactUI.csproj", "{3A1FC3CE-D259-43DF-837B-5A0E20A79E22}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketSalesSystem.WPF", "TicketSalesSystem.WPF\TicketSalesSystem.WPF.csproj", "{0B2B9835-61AF-4F36-BE81-CD33A362D6C8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketSalesSystem.API", "TicketSalesSystem.API\TicketSalesSystem.API.csproj", "{E857500B-EAD5-41E3-868B-5045CB8B107B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketSalesSystem.MVC", "TicketSalesSystem.MVC\TicketSalesSystem.MVC.csproj", "{49B047A7-22FC-40BE-930B-E97C6E481723}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketSalesSystem.MVC", "TicketSalesSystem.MVC\TicketSalesSystem.MVC.csproj", "{49B047A7-22FC-40BE-930B-E97C6E481723}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketSalesSystem.ReactUI", "TicketSalesSystem.ReactUI\TicketSalesSystem.ReactUI.csproj", "{951503B8-BBDF-4C18-BAE3-2B9D5521CC44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,6 @@ Global
 		{0F9EC369-B788-4CD2-BE96-942F0F6C93F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F9EC369-B788-4CD2-BE96-942F0F6C93F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F9EC369-B788-4CD2-BE96-942F0F6C93F7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3A1FC3CE-D259-43DF-837B-5A0E20A79E22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A1FC3CE-D259-43DF-837B-5A0E20A79E22}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3A1FC3CE-D259-43DF-837B-5A0E20A79E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3A1FC3CE-D259-43DF-837B-5A0E20A79E22}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0B2B9835-61AF-4F36-BE81-CD33A362D6C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0B2B9835-61AF-4F36-BE81-CD33A362D6C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B2B9835-61AF-4F36-BE81-CD33A362D6C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{49B047A7-22FC-40BE-930B-E97C6E481723}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49B047A7-22FC-40BE-930B-E97C6E481723}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49B047A7-22FC-40BE-930B-E97C6E481723}.Release|Any CPU.Build.0 = Release|Any CPU
+		{951503B8-BBDF-4C18-BAE3-2B9D5521CC44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{951503B8-BBDF-4C18-BAE3-2B9D5521CC44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{951503B8-BBDF-4C18-BAE3-2B9D5521CC44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{951503B8-BBDF-4C18-BAE3-2B9D5521CC44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

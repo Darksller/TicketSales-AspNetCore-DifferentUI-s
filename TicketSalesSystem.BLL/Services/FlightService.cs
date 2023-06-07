@@ -54,7 +54,7 @@ namespace TicketSalesSystem.BLL.Services
 		}
 		public async Task<FlightDTO> UpdateAsync(FlightDTO entity)
 		{
-			
+
 			var existingFlight = await _flightRepository.GetByIdAsync(entity.Id);
 			existingFlight.DepartureTime = entity.DepartureTime;
 			existingFlight.ArrivalTime = entity.ArrivalTime;

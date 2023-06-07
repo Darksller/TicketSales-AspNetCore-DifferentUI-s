@@ -1,0 +1,56 @@
+﻿@using TicketSalesSystem.BLL.DTOs;
+@{
+	ViewData["Title"] = "Мои билеты";
+}
+@model IEnumerable<TicketDTO>
+
+@if (!Model.Any())
+{
+	<h3>Вы ещё пока не приобрели билеты</h3>
+}
+else
+{
+	<div class="container">
+		<div class="row">
+			@foreach (var ticket in Model)
+			{
+				<div class="col-md-4">
+					<div class="card mb-4">
+						<div class="card-body">
+							<h5 class="card-title">Номер билета: @ticket.Id</h5>
+							<p class="card-text">Место: @ticket.Place</p>
+							<p class="card-text">Самолет: @ticket.Flight.Airplane.Name</p>
+							<p class="card-text">Откуда: @ticket.Flight.Route.DeparturePoint</p>
+							<p class="card-text">Куда: @ticket.Flight.Route.ArrivalPoint</p>
+							<p class="card-text">Время отправки: @ticket.Flight.DepartureTime</p>
+							<p class="card-text">Время прибытия: @ticket.Flight.ArrivalTime</p>
+							<p class="card-text">Цена: @ticket.Price</p>
+							<button class="btn btn-danger" onclick="cancelTicket('@ticket.Id')">Отказаться от билета</button>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+}
+
+
+<script>
+	function cancelTicket(ticketId) {
+		$.ajax({
+			url: '/Ticket/CancelTicket',
+			type: 'DELETE',
+			data: {
+				ticket: {
+					id: ticketId
+				}
+			},
+			success: function () {
+				location.reload();
+			},
+			error: function (xhr, status, error) {
+				console.log(error);
+			}
+		});
+	}
+</script>
